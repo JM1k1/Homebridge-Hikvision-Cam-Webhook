@@ -1,0 +1,70 @@
+{
+  "pluginAlias": "HikvisionCamWebhook",
+  "pluginType": "platform",
+  "headerDisplay": "A simple plugin that connects to the camera, subscribes on events and sends a web request when they are received.\n Set web-auth to digest/basic in your camera settings (Settings -> System -> Security).",
+  "schema": {
+    "name": {
+      "title": "Name",
+      "type": "string",
+      "default": "Hikvision Cam Webhook",
+      "required": false
+    },
+    "cameras": {
+      "type": "array",
+      "items": {
+        "title": "Camera Config",
+        "type": "object",
+        "properties": {
+          "name":{
+            "title": "Name",
+            "type": "string",
+            "default": "Default Camera",
+            "required": true
+          },
+          "host":{
+            "title": "Camera IP Address",
+            "type": "string",
+            "format": "ipv4",
+            "required": true
+          },
+          "port":{
+            "title": "Camera Port",
+            "type": "number",
+            "default": "80",
+            "required": false,
+			"description": "Web interface port"
+          },
+          "user":{
+            "title": "Login",
+            "type": "string",
+            "required": true,
+			"description": "Web interface login"
+          },
+          "password":{
+            "title": "Password",
+            "type": "string",
+            "description": "Web interface password",
+            "required": true
+          },
+          "rhost":{
+            "title": "Destination Address",
+            "type": "string",
+            "required": true,
+            "placeholder": "http://",            
+			"format": "host"
+          },
+          "eventType": {
+            "title": "Event type",
+            "type": "string",
+            "required": true,			
+            "oneOf": [ 
+                { "title": "Local IO alarm", "enum": ["AlarmLocal"] },
+                { "title": "Capture Video motion event", "enum": ["VideoMotion"] },
+                { "title": "Capture Line crossing event", "enum": ["LineDetection"] }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
